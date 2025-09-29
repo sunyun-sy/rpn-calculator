@@ -1,0 +1,165 @@
+#:include <iostream>
+#include <stack>
+#include <sstream>
+#include <vector>
+#include <string>
+#include <cmath>
+#include <stdexcept>
+
+class RPNCalculator {
+private:
+    std::stack<double> stack;
+    
+public:
+    // 基础栈操作
+    void push(double value) {
+        stack.push(value);
+    }
+    
+    double pop() {
+        if (stack.empty()) {
+            throw std::runtime_error("错误: 栈为空");
+        }
+        double value = stack.top();
+        stack.pop();
+        return value;
+    }
+    
+   // 计算操作
+void calculate(const std::string& operation) {
+    if (operation == "+") {
+        if (stack.size() < 2) {
+            throw std::runtime_error("错误: 需要两个操作数进行加法");
+        }
+        double b = pop();
+        double a = pop();
+        push(a + b);
+    }
+    else if (operation == "-") {
+        if (stack.size() < 2) {
+            throw std::runtime_error("错误: 需要两个操作数进行减法");
+        }
+        double b = pop();
+        double a = pop();
+        push(a - b);
+    }
+    else if (operation == "*") {
+        if (stack.size() < 2) {
+            throw std::runtime_error("错误: 需要两个操作数进行乘法");
+        }
+        double b = pop();
+        double a = pop();
+        push(a * b);
+    }
+    else if (operation == "/") {
+        if (stack.size() < 2) {
+            throw std::runtime_error("错误: 需要两个操作数进行除法");
+        }
+        double b = pop();
+        if (b == 0) {
+            throw std::runtime_error("错误: 除零错误");
+        }
+        double a = pop();
+        push(a / b);
+    }
+    else {
+        throw std::runtime_error("错误: 未知操作符 '" + operation + "'");
+    }
+}
+    
+    // 清空栈
+    void clear() {
+        while (!stack.empty()) {
+            stack.pop();
+        }
+    }
+    
+   // 显示栈内容
+void displayStack() {
+    if (stack.empty()) {
+        std::cout << "当前栈: [空]" << std::endl;
+        return;
+    }
+    
+    std::cout << "当前栈: ";
+    std::stack<double> temp = stack;
+    std::vector<double> elements;
+    
+    while (!temp.empty()) {
+        elements.push_back(temp.top());
+        temp.pop();
+    }
+    
+    for (auto it = elements.rbegin(); it != elements.rend(); ++it) {
+        std::cout << *it << " ";
+    }
+    std::cout << std::endl;
+}
+    
+    // 检查栈是否为空
+    bool isEmpty() {
+        return stack.empty();
+    }
+    
+    // 获取栈大小
+    size_t size() {
+        return stack.size();
+    }
+};
+
+int main() {
+    RPNCalculator calculator;
+    std::string input;
+    
+    std::cout << "C++ RPN 计算器" << std::endl;
+    std::cout << "输入表达式（例如：'5 5 +'），或 'q' 退出。" << std::endl;
+    
+    while (true) {
+        std::cout << "> ";
+        std::getline(std::cin, input);
+        
+        if (input == "q" || input == "quit") {
+            break;
+        }
+        
+       // 处理输入表达式
+try {
+    std::istringstream iss(input);
+    std::string token;
+    
+    while (iss >> token) {
+        if (token == "clear") {
+            calculator.clear();
+            std::cout << "栈已清空" << std::endl;
+        }
+        else if (token == "show") {
+            calculator.displayStack();
+        }
+        else if (token == "+" || token == "-" || token == "*" || token == "/") {
+            calculator.calculate(token);
+        }
+        else {
+            // 尝试将token转换为数字
+            try {
+                double value = std::stod(token);
+                calculator.push(value);
+            }
+            catch (const std::invalid_argument&) {
+                std::cout << "错误: 无法识别的输入 '" << token << "'" << std::endl;
+            }
+        }
+    }
+    
+    // 显示最终结果
+    if (!calculator.isEmpty()) {
+        calculator.displayStack();
+    }
+}
+catch (const std::exception& e) {
+    std::cout << e.what() << std::endl;
+}
+    }
+    
+    return 0;
+}
+
