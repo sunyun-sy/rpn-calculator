@@ -54,7 +54,48 @@ figcaption {
 </div>
 <hr>
 </header><main>
-<p>RPN计算器</p>
+<h1>《RPN计算器使用教程》</h1>
+<h2>作者：孙允</h2>
+<h2>版本：1.0.0</h2>
+<h2>简介</h2>
+<p>逆波兰表示法计算器使用说明。</p>
+<h2>基本概念</h2>
+<p>传统中缀表达式：(5 + 3) × 2</p>
+<p>RPN表达式：5 3 + 2 ×</p>
+<h2>安装运行</h2>
+<p>编译：nim c rpn_calculator.nim</p>
+<p>运行：./rpn_calculator</p>
+<h2>快捷键</h2>
+<ul>
+<li>
+<ul>
+<li>加法</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<ul>
+<li>减法</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<ul>
+<li>乘法</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>/ 除法</li>
+</ul>
+<ul>
+<li>c 清空</li>
+</ul>
+<ul>
+<li>q 退出</li>
+</ul>
 </main>
 <footer>
 <div class="nb-box">
@@ -65,9 +106,25 @@ figcaption {
 </footer>
 <section id="source">
 <pre><code class="nohighlight nim hljs"><span class="hljs-keyword">import</span> nimib
-
 nbInit
-nbText: <span class="hljs-string">&quot;RPN计算器&quot;</span>
+nbText: <span class="hljs-string">&quot;# 《RPN计算器使用教程》&quot;</span>
+nbText: <span class="hljs-string">&quot;## 作者：孙允&quot;</span>
+nbText: <span class="hljs-string">&quot;## 版本：1.0.0&quot;</span>
+nbText: <span class="hljs-string">&quot;## 简介&quot;</span>
+nbText: <span class="hljs-string">&quot;逆波兰表示法计算器使用说明。&quot;</span>
+nbText: <span class="hljs-string">&quot;## 基本概念&quot;</span>
+nbText: <span class="hljs-string">&quot;传统中缀表达式：(5 + 3) × 2&quot;</span>
+nbText: <span class="hljs-string">&quot;RPN表达式：5 3 + 2 ×&quot;</span>
+nbText: <span class="hljs-string">&quot;## 安装运行&quot;</span>
+nbText: <span class="hljs-string">&quot;编译：nim c rpn_calculator.nim&quot;</span>
+nbText: <span class="hljs-string">&quot;运行：./rpn_calculator&quot;</span>
+nbText: <span class="hljs-string">&quot;## 快捷键&quot;</span>
+nbText: <span class="hljs-string">&quot;- + 加法&quot;</span>
+nbText: <span class="hljs-string">&quot;- - 减法&quot;</span>
+nbText: <span class="hljs-string">&quot;- * 乘法&quot;</span>
+nbText: <span class="hljs-string">&quot;- / 除法&quot;</span>
+nbText: <span class="hljs-string">&quot;- c 清空&quot;</span>
+nbText: <span class="hljs-string">&quot;- q 退出&quot;</span>
 nbSave
 </code></pre>
 </section><script>

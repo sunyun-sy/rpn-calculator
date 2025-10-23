@@ -1,5 +1,21 @@
 import nimib
-
 nbInit
-nbText: "RPN计算器"
+nbText: "# 《RPN计算器使用教程》"
+nbText: "## 作者：孙允"
+nbText: "## 版本：1.0.0"
+nbText: "## 简介"
+nbText: "逆波兰表示法计算器使用说明。"
+nbText: "## 基本概念"
+nbText: "传统中缀表达式：(5 + 3) × 2"
+nbText: "RPN表达式：5 3 + 2 ×"
+nbText: "## 安装运行"
+nbText: "编译：nim c rpn_calculator.nim"
+nbText: "运行：./rpn_calculator"
+nbText: "## 快捷键"
+nbText: "- + 加法"
+nbText: "- - 减法"
+nbText: "- * 乘法"
+nbText: "- / 除法"
+nbText: "- c 清空"
+nbText: "- q 退出"
 nbSave
