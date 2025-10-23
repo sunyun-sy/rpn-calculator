@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+  <title>tutorial_cn.nim</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2280%22>🐳</text></svg>">
+  <meta content="text/html; charset=utf-8" http-equiv="content-type">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <meta content="nimib 0.3.12" name="generator">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/light.min.css">
+  <link rel='stylesheet' href='https://cdn.jsdelivr.net/gh/pietroppeter/nimib/assets/atom-one-light.css'>
+    <script src="https://cdn.jsdelivr.net/gh/pietroppeter/nimib@main/assets/highlight.min.js"></script>
+<script>hljs.highlightAll();</script>
+
+  <style>
+.nb-box {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nb-small {
+  font-size: 0.8rem;
+}
+button.nb-small {
+  float: right;
+  padding: 2px;
+  padding-right: 5px;
+  padding-left: 5px;
+}
+section#source {
+  display:none
+}
+pre > code {
+  font-size: 1.2em;
+}
+.nb-output {
+  line-height: 1.15;
+}
+figure {
+  margin: 2rem 0;
+}
+figcaption {
+  text-align: center;
+}
+  
+</style>
+  
+</head>
+<body>
+<header>
+<div class="nb-box">
+  <span><a href=".">🏡</a></span>
+  <span><code>tutorial_cn.nim</code></span>
+  <span><a href="https://github.com/sunyun-yml/rpn-calculator"><svg aria-hidden="true" width="1.2em" height="1.2em" style="vertical-align: middle;" preserveAspectRatio="xMidYMid meet" viewBox="0 0 16 16"><path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59c.4.07.55-.17.55-.38c0-.19-.01-.82-.01-1.49c-2.01.37-2.53-.49-2.69-.94c-.09-.23-.48-.94-.82-1.13c-.28-.15-.68-.52-.01-.53c.63-.01 1.08.58 1.23.82c.72 1.21 1.87.87 2.33.66c.07-.52.28-.87.51-1.07c-1.78-.2-3.64-.89-3.64-3.95c0-.87.31-1.59.82-2.15c-.08-.2-.36-1.02.08-2.12c0 0 .67-.21 2.2.82c.64-.18 1.32-.27 2-.27c.68 0 1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82c.44 1.1.16 1.92.08 2.12c.51.56.82 1.27.82 2.15c0 3.07-1.87 3.75-3.65 3.95c.29.25.54.73.54 1.48c0 1.07-.01 1.93-.01 2.2c0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8z" fill="#000"></path></svg></a></span>
+</div>
+<hr>
+</header><main>
+<h1>《RPN计算器使用说明书》</h1>
+<h2>基本信息</h2>
+<ul>
+<li><strong>项目名称</strong>：RPN Calculator</li>
+<li>**作者**：孙允</li>
+<li><strong>版本</strong>：1.0.0</li>
+<li><strong>更新日期</strong>：2025年</li>
+</ul>
+<h2>目录</h2>
+<ol>
+<li><a href="#%E7%AE%80%E4%BB%8B">简介</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5">基本概念</a></li>
+<li><a href="#%E5%AE%89%E8%A3%85%E4%B8%8E%E8%BF%90%E8%A1%8C">安装与运行</a></li>
+<li><a href="#%E5%9F%BA%E6%9C%AC%E6%93%8D%E4%BD%9C">基本操作</a></li>
+<li><a href="#%E5%8A%9F%E8%83%BD%E8%AF%A6%E8%A7%A3">功能详解</a></li>
+<li><a href="#%E5%BF%AB%E6%8D%B7%E9%94%AE%E5%8F%82%E8%80%83">快捷键参考</a></li>
+<li><a href="#%E7%A4%BA%E4%BE%8B%E6%BC%94%E7%A4%BA">示例演示</a></li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ol>
+<h2>简介</h2>
+<p>逆波兰表示法（Reverse Polish Notation，RPN）是一种数学表达式表示法，其中运算符位于操作数之后。与传统的中缀表示法相比，RPN 无需括号即可明确运算顺序。</p>
+<h3>主要特点</h3>
+<ul>
+<li><strong>无歧义</strong>：无需括号即可明确运算顺序</li>
+<li><strong>高效计算</strong>：适合栈式计算器实现</li>
+<li><strong>简单直观</strong>：操作顺序自然流畅</li>
+</ul>
+<h2>基本概念</h2>
+<h3>什么是 RPN？</h3>
+<p>传统中缀表达式：<code>(5 + 3) × 2</code><br />
+RPN 表达式：<code>5 3 + 2 ×</code></p>
+<h3>核心组件</h3>
+<ul>
+<li><strong>操作数栈</strong>：存储输入的数字</li>
+<li><strong>运算符</strong>：对栈顶元素进行运算</li>
+<li><strong>显示区域</strong>：实时显示当前栈状态</li>
+</ul>
+<h2>安装与运行</h2>
+<h3>编译程序</h3>
+<pre><code class="language-bash"># 编译调试版本
+nim c rpn_calculator.nim
+
+# 编译发布版本（推荐）
+nim c -d:release rpn_calculator.nim
+./rpn_calculator
+</code></pre>
+<pre><code class="nohighlight hljs nim"><span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;RPN计算器示例代码&quot;</span></code></pre><pre class="nb-output">RPN计算器示例代码</pre>
+</main>
+<footer>
+<div class="nb-box">
+  <span><span class="nb-small">made with <a href="https://pietroppeter.github.io/nimib/">nimib 🐳</a></span></span>
+  <span></span>
+  <span><button class="nb-small" id="show" onclick="toggleSourceDisplay()">Show Source</button></span>
+</div>
+</footer>
+<section id="source">
+<pre><code class="nohighlight nim hljs"><span class="hljs-keyword">import</span> nimib
+
+nbInit
+nb.filename = <span class="hljs-string">&quot;tutorial_cn.html&quot;</span>
+
+
+nbText: <span class="hljs-string">&quot;&quot;&quot;
+# 《RPN计算器使用说明书》
+
+## 基本信息
+- **项目名称**：RPN Calculator
+- **作者**：孙允
+- **版本**：1.0.0
+- **更新日期**：2025年
+
+## 目录
+1. [简介](#简介)
+2. [基本概念](#基本概念) 
+3. [安装与运行](#安装与运行)
+4. [基本操作](#基本操作)
+5. [功能详解](#功能详解)
+6. [快捷键参考](#快捷键参考)
+7. [示例演示](#示例演示)
+8. [总结](#总结)
+&quot;&quot;&quot;</span>
+
+nbText: <span class="hljs-string">&quot;&quot;&quot;
+## 简介
+
+逆波兰表示法（Reverse Polish Notation，RPN）是一种数学表达式表示法，其中运算符位于操作数之后。与传统的中缀表示法相比，RPN 无需括号即可明确运算顺序。
+
+### 主要特点
+-  **无歧义**：无需括号即可明确运算顺序
+-  **高效计算**：适合栈式计算器实现  
+-  **简单直观**：操作顺序自然流畅
+&quot;&quot;&quot;</span>
+
+nbText: <span class="hljs-string">&quot;&quot;&quot;
+## 基本概念
+
+### 什么是 RPN？
+传统中缀表达式：`(5 + 3) × 2`  
+RPN 表达式：`5 3 + 2 ×`
+
+### 核心组件
+- **操作数栈**：存储输入的数字
+- **运算符**：对栈顶元素进行运算
+- **显示区域**：实时显示当前栈状态
+&quot;&quot;&quot;</span>
+
+nbText: <span class="hljs-string">&quot;&quot;&quot;
+## 安装与运行
+
+### 编译程序
+```bash
+# 编译调试版本
+nim c rpn_calculator.nim
+
+# 编译发布版本（推荐）
+nim c -d:release rpn_calculator.nim
+./rpn_calculator
+&quot;&quot;&quot;</span>
+
+nbCode:
+  <span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;RPN计算器示例代码&quot;</span>
+
+nbSave
+</code></pre>
+</section><script>
+function toggleSourceDisplay() {
+  var btn = document.getElementById("show")
+  var source = document.getElementById("source");
+  if (btn.innerHTML=="Show Source") {
+    btn.innerHTML = "Hide Source";
+    source.style.display = "block";
+  } else {
+    btn.innerHTML = "Show Source";
+    source.style.display = "none";
+  }
+}
+</script></body>
+</html>
